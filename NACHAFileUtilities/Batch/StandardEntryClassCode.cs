@@ -8,11 +8,11 @@ namespace NACHAFileUtilities.Batch
 {
     public class StandardEntryClassCode
     {
-        private readonly string _standardEntryClassCode;
+        public string Code { get; private set; }
 
         private StandardEntryClassCode(string standardEntryClassCode)
         {
-            _standardEntryClassCode = standardEntryClassCode;
+            Code = standardEntryClassCode;
         }
 
 
