@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Batch\BatchHeaderCompany.cs" />
+    <Compile Include="Batch\NachaFileBatchHeader.cs" />
     <Compile Include="Batch\ServiceClassCode.cs" />
     <Compile Include="Batch\StandardEntryClassCode.cs" />
     <Compile Include="FileFieldLayout.cs" />

@@ -8,18 +8,24 @@ namespace NACHAFileUtilities.Batch
 {
     public class BatchHeaderCompany
     {
-        private readonly string _companyName;
-        private readonly string _companyDiscretionaryData;
-        private readonly string _companyIdentification;
-        private readonly string _companyEntryDescription;
+        public string OriginatingDfiIdentification { get; private set; }
+        public DateTime CompanyDescriptiveDate { get; private set; }
+        public string CompanyName { get; private set; }
+        public string CompanyDiscretionaryData { get; private set; }
+        public string CompanyIdentification { get; private set; }
+
+        public string CompanyEntryDescription { get; private set; }
 
         public BatchHeaderCompany(string companyName, string companyDiscretionaryData, 
-            string companyIdentification,string companyEntryDescription)
+            string companyIdentification,string companyEntryDescription, DateTime companyDescriptiveDate, string originatingDFIIdentification)
         {
-            _companyName = companyName;
-            _companyDiscretionaryData = companyDiscretionaryData;
-            _companyIdentification = companyIdentification;
-            _companyEntryDescription = companyEntryDescription;
+            OriginatingDfiIdentification = originatingDFIIdentification;
+            CompanyDescriptiveDate = companyDescriptiveDate;
+            CompanyName = companyName;
+            CompanyDiscretionaryData = companyDiscretionaryData;
+            CompanyIdentification = companyIdentification;
+            CompanyEntryDescription = companyEntryDescription;
+
         }
     }
 }

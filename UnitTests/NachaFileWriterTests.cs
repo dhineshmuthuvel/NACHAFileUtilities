@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NACHAFileUtilities;
 using NACHAFileUtilities.Batch;
+using Shouldly;
 
 namespace UnitTests
 {
@@ -16,8 +17,10 @@ namespace UnitTests
         public void CreateHeader()
         {
             NACHAFileWriter writer = new NACHAFileWriter();
-
             writer.CreateHeader("LBC", "RBC", "LBC", "RBC");
+            List<string> fileContents = writer.GetFileContent();
+            PrintFileContents(fileContents);
+            
         }
 
         [TestMethod]
@@ -25,12 +28,29 @@ namespace UnitTests
         {
             NACHAFileWriter writer = new NACHAFileWriter();
 
+            writer.CreateHeader("LBC", "RBC", "LBC", "RBC");
+
             ServiceClassCode mixedDebitsAndCredits = ServiceClassCode.GetMixedDebitsAndCredits();
-            BatchHeaderCompany batchHeaderCompany = new BatchHeaderCompany("LBC", "LBC Express", "1231231", "Payroll");
+            BatchHeaderCompany batchHeaderCompany = 
+                new BatchHeaderCompany("LBC", "LBC Express", "1231231", "Payroll", DateTime.Now, "000000000");
             StandardEntryClassCode standardEntryClassCode = StandardEntryClassCode.GetWebAuthorizationEntries();
 
-            //writer.CreateBatchHeader(mixedDebitsAndCredits,
-            //    batchHeaderCompany,standardEntryClassCode);
+            int batchHeaderId = writer.CreateBatchHeader(mixedDebitsAndCredits, batchHeaderCompany, standardEntryClassCode, DateTime.Now,
+                DateTime.Now);
+
+            batchHeaderId.ShouldBeGreaterThan(0);
+
+            List<string> fileContents = writer.GetFileContent();
+            PrintFileContents(fileContents);
+
+        }
+
+        private void PrintFileContents(List<string> fileContents)
+        {
+            foreach (string fileContent in fileContents)
+            {
+                Console.WriteLine(fileContent);
+            }
         }
     }
 }
